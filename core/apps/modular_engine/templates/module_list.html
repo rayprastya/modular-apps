@@ -21,9 +21,9 @@
                 {% endif %}
             </td>
             <td>        
-                <a href="{% url 'module_detail' module.slug 'uninstall' %}" class="btn btn-primary">Uninstall</a>
-                <a href="{% url 'module_edit' module.slug 'install' %}" class="btn btn-warning">Install</a>
-                <a href="{% url 'module_delete' module.slug 'upgrade' %}" class="btn btn-danger">Upgrade</a>
+                <a href="{% url 'module_action' module.slug 'uninstall' %}" class="btn btn-primary">Uninstall</a>
+                <a href="{% url 'module_action' module.slug 'install' %}" class="btn btn-warning">Install</a>
+                <a href="{% url 'module_action' module.slug 'upgrade' %}" class="btn btn-danger">Upgrade</a>
             </td>
         </tr>
         {% endfor %}

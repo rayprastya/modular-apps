@@ -2,7 +2,7 @@ from django.views.generic import TemplateView, View
 from django.shortcuts import get_object_or_404, redirect
 from django.apps import apps
 from django.core.management import call_command
-from models import Module
+from .models import Module
 class ModularView(TemplateView):
     template_name = 'modular_engine/templates/modular_list.html'
 
