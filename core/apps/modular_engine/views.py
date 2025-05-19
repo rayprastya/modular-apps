@@ -1,6 +1,7 @@
 from django.views.generic import TemplateView, View
 from django.shortcuts import get_object_or_404, redirect
 from django.apps import apps
+from django.core.management import call_command
 from models import Module
 class ModularView(TemplateView):
     template_name = 'modular_engine/templates/modular_list.html'
@@ -51,20 +52,28 @@ class ModuleActionView(View):
         if not handle_action:
             return False #TODO: return error message
 
-        return handle_action(request, module)
+        return handle_action(module)
     
     def installation_action(self, module, action):
+        # to mark the of the active module
         module.is_active = action
         module.save()
     
-    def install_module(self, request, module):
-        self.installation_action(True)
+    def install_module(self, module):
+        self.installation_action(module, True)
         return redirect('module_list')
 
-    def uninstall_module(self, request, module):
-        self.installation_action(False)
+    def uninstall_module(self, module):
+        self.installation_action(module, False)
         return redirect('module_list')
 
-    def upgrade_module(self, request, module):
-        # TODO: to implement when module having new table or remove something, then need to hit this first
-        pass
+    def upgrade_module(self, module):
+        # running migrations for updating the data
+        call_command('makemigrations', module.slug) #param : command, app_label
+        call_command('migrate', module.slug)
+
+        # version upgrade tracking
+        major, minor= map(int, module.version.split('.'))
+        minor += 1
+        module.version = f"{major}.{minor}"
+        module.save()

@@ -7,6 +7,7 @@ class Module(BaseModel):
     slug = models.SlugField(max_length=100, unique=True)
     description = models.TextField()
     is_active = models.BooleanField(default=False)
+    version = models.CharField(max_length=10, default="1.0")
 
     def __str__(self):
         return self.name
