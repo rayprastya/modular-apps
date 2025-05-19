@@ -7,7 +7,7 @@ class ModularView(TemplateView):
     template_name = 'modular_engine/templates/modular_list.html'
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs) #why it has to be implemented this way?
+        context = super().get_context_data(**kwargs) #TODO: why it has to be implemented this way?
 
         app_config = [
             app for app in apps.get_app_configs()
@@ -69,6 +69,7 @@ class ModuleActionView(View):
 
     def upgrade_module(self, module):
         # running migrations for updating the data
+        # TODO: to check if it doesnt need to add the version up
         call_command('makemigrations', module.slug) #param : command, app_label
         call_command('migrate', module.slug)
 
