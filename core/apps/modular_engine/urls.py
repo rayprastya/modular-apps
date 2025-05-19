@@ -1,7 +1,8 @@
 from django.urls import path
-from . import views
+from .views import ModularView, install_module
 
 urlpatterns = [
-    path('modular-tools', views.index, name='modular-tools'),
+    path('modular-tools', ModularView, name='modular-tools'),
+    path('install/<str:slug/', install_module, name='module-list'),
 ]
 
