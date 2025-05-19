@@ -1,0 +1,31 @@
+<h1>Module List</h1>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Slug</th>
+            <th>Is Active</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for module in modules %}
+        <tr>
+            <td>{{ module.name }}</td>
+            <td>{{ module.slug }}</td>
+            <td>
+                {% if module.is_active %}
+                    <span class="badge bg-success">Active</span>
+                {% else %}
+                    <span class="badge bg-danger">Inactive</span>
+                {% endif %}
+            </td>
+            <td>        
+                <a href="{% url 'module_detail' module.slug 'uninstall' %}" class="btn btn-primary">Uninstall</a>
+                <a href="{% url 'module_edit' module.slug 'install' %}" class="btn btn-warning">Install</a>
+                <a href="{% url 'module_delete' module.slug 'upgrade' %}" class="btn btn-danger">Upgrade</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
