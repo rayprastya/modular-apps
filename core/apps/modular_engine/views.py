@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404, redirect
 from django.apps import apps
 from django.core.management import call_command
 from core.utils.helper import load_module_config
-from .models import Module
+from apps.modular_engine.models import Module
 
 class ModularView(TemplateView):
     template_name = 'module_list.html'
@@ -39,6 +39,7 @@ class ModularView(TemplateView):
 
 class ModuleActionView(View):
     def post(self, request, slug, action):
+        print("got here")
         module = get_object_or_404(Module, slug=slug)
 
         actions = {
@@ -60,11 +61,11 @@ class ModuleActionView(View):
     
     def install_module(self, module):
         self.installation_action(module, True)
-        return redirect('module_list')
+        return redirect('modular-tools')
 
     def uninstall_module(self, module):
         self.installation_action(module, False)
-        return redirect('module_list')
+        return redirect('modular-tools')
 
     def upgrade_module(self, module):
         # running migrations for updating the data

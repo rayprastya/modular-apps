@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import ModularView, ModuleActionView
+from apps.modular_engine.views import ModularView, ModuleActionView
 
 urlpatterns = [
     path('', ModularView.as_view(), name='modular-tools'),

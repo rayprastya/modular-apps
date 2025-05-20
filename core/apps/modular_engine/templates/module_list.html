@@ -23,9 +23,20 @@
                 {% endif %}
             </td>
             <td>        
-                <a href="{% url 'module-action' module.slug 'uninstall' %}" class="btn btn-primary">Uninstall</a>
-                <a href="{% url 'module-action' module.slug 'install' %}" class="btn btn-warning">Install</a>
-                <a href="{% url 'module-action' module.slug 'upgrade' %}" class="btn btn-danger">Upgrade</a>
+                <form method="post" action="{% url 'module-action' module.slug 'install' %}" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-warning">Install</button>
+                  </form>
+                  
+                  <form method="post" action="{% url 'module-action' module.slug 'uninstall' %}" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary">Uninstall</button>
+                  </form>
+                  
+                  <form method="post" action="{% url 'module-action' module.slug 'upgrade' %}" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Upgrade</button>
+                  </form>
             </td>
         </tr>
         {% endfor %}
