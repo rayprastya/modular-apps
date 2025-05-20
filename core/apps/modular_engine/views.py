@@ -93,8 +93,12 @@ class SignUpView(FormView):
     success_url = reverse_lazy('login')
 
     def form_valid(self, form):
+        group = form.cleaned_data.pop('group')
         user = form.save()
-        group = form.cleaned_data['group']
         user.groups.add(group)
         return super().form_valid(form)
+    
+    def form_invalid(self, form):
+        print("Errors:", form.errors)
+        return super().form_invalid(form)
 
