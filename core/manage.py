@@ -3,6 +3,8 @@
 import os
 import sys
 
+# this will make the django read the apps in the apps folder
+sys.path.append(os.path.join(os.path.dirname(__file__), 'apps'))
 
 def main():
     """Run administrative tasks."""
