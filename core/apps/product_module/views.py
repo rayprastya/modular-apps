@@ -3,29 +3,32 @@ from .models import Product
 from django.urls import reverse_lazy
 
 class ProductListView(ListView):
-    template_name = 'product_module/templates/product_list.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['products'] = Product.objects.all()
-        return context
+    template_name = 'product_list.html'
+    model = Product
+    context_object_name = "products"
+    
+    # this is for if i want to add other context data
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     context['products'] = Product.objects.all()
+    #     return context
 
 class ProductCreateView(CreateView):
     model = Product
-    template_name = 'product_module/templates/product_form.html'
+    template_name = 'product_form.html'
     fields = ['name', 'barcode', 'price', 'stock']
-    success_url = reverse_lazy('product_list') #TODO: why it has to be implemented this way?
+    success_url = reverse_lazy('product-module') #TODO: why it has to be implemented this way?
 
 class ProductUpdateView(UpdateView):
     model = Product
-    template_name = 'product_module/templates/product_form.html'
+    template_name = 'product_form.html'
     fields = ['name', 'barcode', 'price', 'stock']
-    success_url = reverse_lazy('product_list')
+    success_url = reverse_lazy('product-module')
 
 #TODO: need to check how to properly use delete view
 class ProductDeleteView(DeleteView):
     model = Product
-    template_name = 'product_module/templates/product_confirm_delete.html'
-    success_url = reverse_lazy('product_list')
+    template_name = 'product_confirm_delete.html'
+    success_url = reverse_lazy('product-module')
 
 
