@@ -1,44 +1,55 @@
-<h1>Module List</h1>
-<table>
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Slug</th>
-            <th>Description</th>
-            <th>Is Active</th>
-            <th>Actions</th>
-        </tr>
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="mb-4">Module List</h1>
+
+<div class="table-responsive">
+  <table class="table table-striped table-bordered align-middle">
+    <thead class="table-dark">
+      <tr>
+        <th>Name</th>
+        <th>Slug</th>
+        <th>Description</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
     </thead>
     <tbody>
-        {% for module in modules %}
-        <tr>
-            <td>{{ module.name }}</td>
-            <td>{{ module.slug }}</td>
-            <td>{{ module.description }}</td>
-            <td>
-                {% if module.is_active %}
-                    <span class="badge bg-success">Active</span>
-                {% else %}
-                    <span class="badge bg-danger">Inactive</span>
-                {% endif %}
-            </td>
-            <td>        
-                <form method="post" action="{% url 'module-action' module.slug 'install' %}" style="display:inline;">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-warning">Install</button>
-                  </form>
-                  
-                  <form method="post" action="{% url 'module-action' module.slug 'uninstall' %}" style="display:inline;">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-primary">Uninstall</button>
-                  </form>
-                  
-                  <form method="post" action="{% url 'module-action' module.slug 'upgrade' %}" style="display:inline;">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-danger">Upgrade</button>
-                  </form>
-            </td>
-        </tr>
-        {% endfor %}
+      {% for module in modules %}
+      <tr>
+        <td>{{ module.name }}</td>
+        <td>{{ module.slug }}</td>
+        <td>{{ module.description }}</td>
+        <td>
+          {% if module.is_active %}
+            <span class="badge bg-success">Active</span>
+          {% else %}
+            <span class="badge bg-danger">Inactive</span>
+          {% endif %}
+        </td>
+        <td>
+          <div class="d-flex gap-2">
+            <form method="post" action="{% url 'module-action' module.slug 'install' %}">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-warning btn-sm">Install</button>
+            </form>
+            <form method="post" action="{% url 'module-action' module.slug 'uninstall' %}">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-primary btn-sm">Uninstall</button>
+            </form>
+            <form method="post" action="{% url 'module-action' module.slug 'upgrade' %}">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-danger btn-sm">Upgrade</button>
+            </form>
+          </div>
+        </td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="5" class="text-center text-muted">No modules found.</td>
+      </tr>
+      {% endfor %}
     </tbody>
-</table>
+  </table>
+</div>
+{% endblock %}

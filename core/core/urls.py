@@ -17,10 +17,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
+from apps.modular_engine.views import SignUpView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('login/', auth_views.LoginView.as_view(), name='login'),
+    path('login/', auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),
+    path('signup/', SignUpView.as_view(template_name='registration/signup.html'), name='signup'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('module/', include('modular_engine.urls')),
     path('product/', include('product_module.urls')),

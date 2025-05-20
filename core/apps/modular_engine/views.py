@@ -1,3 +1,8 @@
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import Group, User
+from django.views.generic.edit import FormView
+from django.urls import reverse_lazy
+from django import forms
 from django.views.generic import TemplateView, View
 from django.shortcuts import get_object_or_404, redirect
 from django.apps import apps
@@ -74,3 +79,22 @@ class ModuleActionView(View):
 
         # version upgrade tracking
         # TODO: the version upgrade will update to the metadata.json file
+
+class SignUpForm(UserCreationForm):
+    group = forms.ModelChoiceField(queryset=Group.objects.all(), required=True)
+    class Meta:
+        model = User
+        fields = ['username', 'password1', 'password2', 'group']
+    
+    
+class SignUpView(FormView):
+    template_name = 'registration/signup.html'
+    form_class = SignUpForm
+    success_url = reverse_lazy('login')
+
+    def form_valid(self, form):
+        user = form.save()
+        group = form.cleaned_data['group']
+        user.groups.add(group)
+        return super().form_valid(form)
+
