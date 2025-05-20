@@ -1,5 +1,4 @@
 from django.db import models
-from django.utils.text import slugify
 from core.utils.models import BaseModel
 
 class Module(BaseModel):
@@ -7,12 +6,6 @@ class Module(BaseModel):
     slug = models.SlugField(max_length=100, unique=True)
     description = models.TextField()
     is_active = models.BooleanField(default=False)
-    version = models.CharField(max_length=10, default="1.0")
 
     def __str__(self):
         return self.name
-    
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.name)
-        super().save(*args, **kwargs)

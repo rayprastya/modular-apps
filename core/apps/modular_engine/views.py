@@ -2,39 +2,37 @@ from django.views.generic import TemplateView, View
 from django.shortcuts import get_object_or_404, redirect
 from django.apps import apps
 from django.core.management import call_command
+from core.utils.helper import load_module_config
 from .models import Module
 class ModularView(TemplateView):
     template_name = 'modular_engine/templates/modular_list.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs) #TODO: why it has to be implemented this way?
-
-        app_config = [
-            app for app in apps.get_app_configs()
-            if app.name.endswith('_module')
-        ]
-
         modules = [] 
 
-        for app in app_config:
-            # sync to db if not exists
-            module, created = Module.objects.get_or_create(
-                slug = app.name,
-                defaults = {
-                    'name': app.name,
-                    'is_active': True,
-                }
-            )
+        for app in apps.get_app_configs():
+            if not app.name.endswith('_module'):
+                continue
 
-            module_object = {
-                'name': module.name,
-                'slug': module.slug,
-                'is_active': module.is_active,
+            metadata = load_module_config(app)
+            if not metadata:
+                continue
+
+            metadata_db = {
+                'name': metadata['name'],
+                'slug': metadata['slug'],
+                'description': metadata['description'],
+                'is_active': False,
             }
 
-            modules.append(module_object)
+            module, _ = Module.objects.get_or_create(
+                defaults = metadata_db
+            )
 
-        context['modules'] = Module.objects.all()
+            modules.append(module)
+
+        context['modules'] = modules
         return context
 
 
@@ -74,7 +72,4 @@ class ModuleActionView(View):
         call_command('migrate', module.slug)
 
         # version upgrade tracking
-        major, minor= map(int, module.version.split('.'))
-        minor += 1
-        module.version = f"{major}.{minor}"
-        module.save()
+        # TODO: the version upgrade will update to the metadata.json file
