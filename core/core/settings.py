@@ -74,11 +74,6 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-print("TESTING")
-print(constant.NAME, constant.USER, constant.PASSWORD, constant.HOST, constant.PORT)
-print("DB USER:", constant.DBUSER)
-
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',

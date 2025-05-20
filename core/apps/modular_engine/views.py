@@ -39,7 +39,6 @@ class ModularView(TemplateView):
 
 class ModuleActionView(View):
     def post(self, request, slug, action):
-        print("got here")
         module = get_object_or_404(Module, slug=slug)
 
         actions = {
