@@ -4,6 +4,7 @@
         <tr>
             <th>Name</th>
             <th>Slug</th>
+            <th>Description</th>
             <th>Is Active</th>
             <th>Actions</th>
         </tr>
@@ -13,6 +14,7 @@
         <tr>
             <td>{{ module.name }}</td>
             <td>{{ module.slug }}</td>
+            <td>{{ module.description }}</td>
             <td>
                 {% if module.is_active %}
                     <span class="badge bg-success">Active</span>
@@ -21,9 +23,9 @@
                 {% endif %}
             </td>
             <td>        
-                <a href="{% url 'module_action' module.slug 'uninstall' %}" class="btn btn-primary">Uninstall</a>
-                <a href="{% url 'module_action' module.slug 'install' %}" class="btn btn-warning">Install</a>
-                <a href="{% url 'module_action' module.slug 'upgrade' %}" class="btn btn-danger">Upgrade</a>
+                <a href="{% url 'module-action' module.slug 'uninstall' %}" class="btn btn-primary">Uninstall</a>
+                <a href="{% url 'module-action' module.slug 'install' %}" class="btn btn-warning">Install</a>
+                <a href="{% url 'module-action' module.slug 'upgrade' %}" class="btn btn-danger">Upgrade</a>
             </td>
         </tr>
         {% endfor %}

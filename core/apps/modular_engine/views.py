@@ -5,7 +5,7 @@ from django.core.management import call_command
 from core.utils.helper import load_module_config
 from .models import Module
 class ModularView(TemplateView):
-    template_name = 'modular_engine/templates/modular_list.html'
+    template_name = 'module_list.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs) #TODO: why it has to be implemented this way?
