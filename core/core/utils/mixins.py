@@ -2,7 +2,7 @@
 
 from django.contrib.auth.mixins import AccessMixin
 from django.http import HttpResponseForbidden
-from core.apps.modular_engine.models import Module
+from apps.modular_engine.models import Module
 from core.utils.constant import PUBLIC
 
 class RoleRequiredMixin(AccessMixin):
@@ -24,7 +24,6 @@ class RoleRequiredMixin(AccessMixin):
     
 class ModuleRequiredMixin(AccessMixin):
     model_slug = None
-
     def dispatch(self, request, *args, **kwargs):
         try:
             module = Module.objects.get(slug=self.model_slug)

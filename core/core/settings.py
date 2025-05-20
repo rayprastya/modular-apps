@@ -37,8 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'modular_engine',
-    'product_module',
+    'apps.modular_engine',
+    'apps.product_module',
 ]
 
 MIDDLEWARE = [
@@ -74,11 +74,16 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+print("TESTING")
+print(constant.NAME, constant.USER, constant.PASSWORD, constant.HOST, constant.PORT)
+print("DB USER:", constant.DBUSER)
+
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': constant.NAME,
-        'USER': constant.USER,
+        'USER': constant.DBUSER,
         'PASSWORD': constant.PASSWORD,
         'HOST': constant.HOST,
         'PORT': constant.PORT,

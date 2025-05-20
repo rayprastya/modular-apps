@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 NAME=os.getenv('NAME')
-USER=os.getenv('USER')
+DBUSER=os.getenv('DBUSER')
 PASSWORD=os.getenv('PASSWORD')
 HOST=os.getenv('HOST')
 PORT=os.getenv('PORT')
