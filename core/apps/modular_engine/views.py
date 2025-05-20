@@ -11,7 +11,7 @@ class ModularView(TemplateView):
 
         app_config = [
             app for app in apps.get_app_configs()
-            if app.name.startswith('core.apps')
+            if app.name.endswith('_module')
         ]
 
         modules = [] 
