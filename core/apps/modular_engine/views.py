@@ -4,6 +4,7 @@ from django.apps import apps
 from django.core.management import call_command
 from core.utils.helper import load_module_config
 from .models import Module
+
 class ModularView(TemplateView):
     template_name = 'module_list.html'
 
