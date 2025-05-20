@@ -12,6 +12,7 @@
         <th>Description</th>
         <th>Status</th>
         <th>Actions</th>
+        <th>Access</th>
       </tr>
     </thead>
     <tbody>
@@ -42,6 +43,12 @@
               <button type="submit" class="btn btn-danger btn-sm">Upgrade</button>
             </form>
           </div>
+        </td>
+        <td>
+            <form method="get" action="{% url 'product-module'%}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary btn-sm"> > </button>
+            </form>
         </td>
       </tr>
       {% empty %}
