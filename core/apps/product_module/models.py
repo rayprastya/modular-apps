@@ -1,5 +1,6 @@
 from django.db import models
 from core.utils.models import BaseModel
+
 class Product(BaseModel):
     name = models.CharField(max_length=100)
     barcode = models.CharField(max_length=25)
@@ -8,3 +9,8 @@ class Product(BaseModel):
 
     def __str__(self):
         return self.name
+    
+    class Meta:
+        db_table = 'products'
+        verbose_name = 'Product'
+        verbose_name_plural = 'Products'

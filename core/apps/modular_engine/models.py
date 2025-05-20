@@ -9,3 +9,8 @@ class Module(BaseModel):
 
     def __str__(self):
         return self.name
+    
+    class Meta:
+        db_table = 'modules'
+        verbose_name = 'Module'
+        verbose_name_plural = 'Modules'
