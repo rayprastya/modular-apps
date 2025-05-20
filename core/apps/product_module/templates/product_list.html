@@ -23,7 +23,7 @@
                 <td>
                     {% if user.is_authenticated %}
                         <a href="{% url 'product-edit' product.id %}">Edit</a>
-                        {% if user.is_superuser %}
+                        {% if 'manager' in user_roles %}
                             <a href="{% url 'product-delete' product.id %}">Delete</a>
                         {% endif %}
                     {% endif %}
