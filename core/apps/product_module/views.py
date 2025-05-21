@@ -3,7 +3,7 @@ from apps.product_module.models import Product
 from django.urls import reverse_lazy
 from core.utils.mixins import ModuleRequiredMixin, RoleRequiredMixin, UpgradeRequiredMixin
 from core.utils.constant import ALL_ROLES, MANAGER, USER
-
+import random
 class ProductListView(ModuleRequiredMixin, RoleRequiredMixin, UpgradeRequiredMixin, ListView):
     model_slug = 'product_module'
     template_name = 'product_list.html'
@@ -20,15 +20,19 @@ class ProductCreateView(ModuleRequiredMixin, RoleRequiredMixin, UpgradeRequiredM
     model_slug = 'product_module'
     model = Product
     template_name = 'product_form.html'
-    fields = ['name', 'barcode', 'price', 'stock']
+    fields = ['name', 'price', 'stock']
     success_url = reverse_lazy('product-module') #TODO: why it has to be implemented this way?
     allowed_roles = [MANAGER, USER]
+
+    def form_valid(self, form):
+        form.instance.barcode = str(random.randint(100000000000, 999999999999))
+        return super().form_valid(form)
 
 class ProductUpdateView(ModuleRequiredMixin, RoleRequiredMixin, UpgradeRequiredMixin, UpdateView):
     model_slug = 'product_module'
     model = Product
     template_name = 'product_form.html'
-    fields = ['name', 'barcode', 'price', 'stock']
+    fields = ['name', 'price', 'stock']
     success_url = reverse_lazy('product-module')
     allowed_roles = [MANAGER, USER]
 
