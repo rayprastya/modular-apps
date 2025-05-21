@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="alert alert-warning text-center p-5">
+    <h2>Product Module Requires Upgrade</h2>
+    <p>Please upgrade the module before using its features.</p>
+    <a href="{% url 'modular-tools' %}" class="btn btn-warning mt-3">Go to Module Manager</a>
+  </div>
+{% endblock %}

@@ -12,6 +12,7 @@
         <th>Description</th>
         <th>Status</th>
         <th>Actions</th>
+        <th>Version</th>
         <th>Access</th>
       </tr>
     </thead>
@@ -43,6 +44,13 @@
               <button type="submit" class="btn btn-danger btn-sm">Upgrade</button>
             </form>
           </div>
+        </td>
+        <td>
+            {% if module.need_upgrade %}
+                <span class="badge bg-warning">Needs Upgrade</span>
+            {% else %}
+                <span class="badge bg-info">Up-to-date</span>
+            {% endif %}
         </td>
         <td>
             <form method="get" action="{% url 'product-module'%}">

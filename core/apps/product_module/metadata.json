@@ -1,6 +1,6 @@
 {
-    "name": "product module",
-    "slug": "product-module",
-    "description": "Listing of products",
-    "version": "1.0"
+  "name": "product module",
+  "slug": "product_module",
+  "description": "Listing of products",
+  "version": 1.4
 }
