@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}Module Not Found{% endblock %}
+
+{% block content %}
+  <div class="container py-5 text-center">
+    <h2 class="text-danger mb-3">🚫 Module Not Found</h2>
+    <p class="lead">The requested module could not be found. Please check the URL or try again later.</p>
+    <a href="{% url 'modular-tools' %}" class="btn btn-secondary mt-3">Back to Module Manager</a>
+  </div>
+{% endblock %}

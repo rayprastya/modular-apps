@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+  <div class="container py-5 text-center">
+    <h1 class="mb-3">Welcome to the Modular App Platform</h1>
+    <p class="lead">Please select a module from the menu or <a href="{% url 'modular-tools' %}">visit the module manager</a>.</p>
+  </div>
+{% endblock %}

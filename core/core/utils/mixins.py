@@ -5,7 +5,7 @@ from django.http import HttpResponseForbidden
 from apps.modular_engine.models import Module
 from core.utils.constant import PUBLIC
 from core.utils.helper import load_module_config
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 class RoleRequiredMixin(AccessMixin):
     """limit user access based on role."""
     allowed_roles = []
@@ -30,10 +30,10 @@ class ModuleRequiredMixin(AccessMixin):
         try:
             module = Module.objects.get(slug=self.model_slug)
         except Module.DoesNotExist:
-            return HttpResponseForbidden("Module does not exist", status=404)
+            return render(request, "errors/module_not_found.html", status=404)
         
         if not module.is_active:
-            return HttpResponseForbidden("Module is not active", status=403)
+            return render(request, "errors/module_inactive.html", status=403)
         
         return super().dispatch(request, *args, **kwargs)
 
