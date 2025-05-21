@@ -26,6 +26,6 @@ urlpatterns = [
     path('login/', auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),
     path('signup/', SignUpView.as_view(template_name='registration/signup.html'), name='signup'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
-    path('module/', include('modular_engine.urls')),
-    path('product/', include('product_module.urls')),
+    path('module/', include('apps.modular_engine.urls')),
+    path('product/', include('apps.product_module.urls')),
 ]
