@@ -36,7 +36,7 @@ class ProductUpdateView(ModuleRequiredMixin, RoleRequiredMixin, UpdateView):
 class ProductDeleteView(ModuleRequiredMixin, RoleRequiredMixin, DeleteView):
     model_slug = 'product-module'
     model = Product
-    template_name = 'product_confirm_delete.html'
+    template_name = 'product_list.html'
     success_url = reverse_lazy('product-module')
     allowed_roles = [MANAGER]
 

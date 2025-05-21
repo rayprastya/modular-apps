@@ -32,8 +32,18 @@
               <td>
                 {% if user.is_authenticated %}
                   <a href="{% url 'product-edit' product.id %}" class="btn btn-primary btn-sm">Edit</a>
-                  {% if 'manager' in user_roles %}
-                    <a href="{% url 'product-delete' product.id %}" class="btn btn-danger btn-sm ms-1">Delete</a>
+                  {% if 'manager' in user_role %}
+                    <button 
+                        type="button" 
+                        class="btn btn-danger btn-sm ms-1"
+                        data-bs-toggle="modal"
+                        data-bs-target="#deleteModal"
+                        data-url="{% url 'product-delete' product.id %}"
+                        data-name="{{ product.name }}"
+                        >
+                        Delete
+                    </button>
+                
                   {% endif %}
                 {% endif %}
               </td>
@@ -45,6 +55,43 @@
           {% endfor %}
         </tbody>
       </table>
+        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                Are you sure you want to delete <strong id="modal-product-name"></strong>?
+                </div>
+                <div class="modal-footer">
+                <form id="delete-form" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Yes</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                </form>
+                </div>
+            </div>
+            </div>
+        </div>
     </div>
   </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    const deleteModal = document.getElementById('deleteModal');
+    deleteModal.addEventListener('show.bs.modal', function (event) {
+      const button = event.relatedTarget;
+      const url = button.getAttribute('data-url');
+      const name = button.getAttribute('data-name');
+  
+      const form = deleteModal.querySelector('#delete-form');
+      const nameSpan = deleteModal.querySelector('#modal-product-name');
+  
+      form.setAttribute('action', url);
+      nameSpan.textContent = name;
+    });
+  </script>
 {% endblock %}
